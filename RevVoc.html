@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>📖RevVoc</title>
+  <style>
+    *{
+        font-family: "Trebuchet MS",Arial,sans-serif;
+        font-weight: normal;
+        text-align: justify;
+    }
+  </style>
+</head>
+
+<body>
+    <h1>Révision de Vocabulaire</h1>
+
+    <div id="word-container"></div>
+
+    <button onclick="checkAnswer()">Vérifier</button>
+    <button onclick="nextWord()">Mot suivant</button>
+<script>
+    fetch('chemin/vers/votre/fichier.csv')
+    .then(response => response.text())
+    .then(data => {
+        // Traitement des données CSV
+        const lines = data.split('\n'); // Sépare les lignes du fichier CSV
+        const words = [];
+
+        for (let i = 0; i < lines.length; i++) {
+        const columns = lines[i].split(','); // Sépare les colonnes de chaque ligne
+        const word = {
+            translation: columns[0],
+            correctAnswers: parseInt(columns[1]),
+            additionalInfo: columns[2]
+        };
+        words.push(word);
+        }
+
+        // Faites ce que vous voulez avec les données, comme trier le tableau "words" par nombre de réponses justes
+        words.sort((a, b) => b.correctAnswers - a.correctAnswers);
+
+        // Affichez les mots et leurs détails dans votre interface web
+        words.forEach(word => {
+        // Ajoutez le code pour afficher chaque mot et ses détails dans votre interface web
+        });
+    })
+    .catch(error => {
+        console.error('Une erreur s\'est produite lors de la récupération du fichier CSV :', error);
+    });
+
+    // Fonction pour vérifier la réponse
+    function checkAnswer() {
+          let word = words[currentIndex];
+          let userAnswer = prompt('Quelle est la traduction du mot ' + word.word + '?');
+
+          if (userAnswer === word.translation) {
+            word.correctAnswers++;
+            alert('Bonne réponse!');
+          } else {
+            alert('Mauvaise réponse!');
+          }
+        }
+
+        // Fonction pour passer au mot suivant
+        function nextWord() {
+          currentIndex++;
+
+          if (currentIndex < words.length) {
+            displayWord(currentIndex);
+          } else {
+            alert('Vous avez révisé tous les mots!');
+          }
+        }
+      })
+      .catch(error => console.error(error));
+</script>
+</body>
+</html>
