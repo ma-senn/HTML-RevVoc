@@ -16,10 +16,10 @@
 
     <div id="Question"></div>
     <div id="Reponse"></div>
-    <button onclick="montrer()">Montrer réponse</button>
+    <button onclick="reveal()">Montrer réponse</button>
     
-    <button onclick="reponseCorrect()">Correct</button>
-    <button onclick="reponseFausse()">Faux</button>
+    <button onclick="nextWord()">Correct</button>
+    <button onclick="nextWord()">Faux</button>
     <button onclick="nextWord()">Mot suivant</button>
     <br><br>
 
@@ -27,7 +27,8 @@
     <input type="text" id="inLang1" name="inLang1"><br>
     <label for="inLang2">Mot en langue 2</label>
     <input type="text" id="inLang2" name="inLang2"><br>
-    <button onclick="AjoutMot()">Ajouter mot</button><br><br>
+    <button onclick="AddWord()">Ajouter mot</button><br><br>
+    <button onclick="SaveList()">Enregistrer</button><br><br>
 <script>
     var wordsList = new Array();
 
@@ -38,12 +39,37 @@
         var inLang2 = document.getElementById("inLang2").value;
 
         //Ajouter mot à l'array
-        wordsList.push([inLang1,inLang2,0]);
+        wordsList.push([inLang1, inLang2, 0]);
         console.log(wordsList);
 
         //enregistré l'array en JSON
+        var JSONexport = JSON.stringify(wordsList);
+        console.log(JSONexport);
 
+        // Écrire la chaîne JSON dans un fichier .json
+        //var jsonBlob = new Blob([JSON.stringify(wordsList)],{
+        //  type: 'application/json'
+        // });
+        //var link=window.URL.createObjectURL(jsonBlob);
+        //window.location=link;
+      }
 
+    function SaveList() {
+        var saveData = (function () {
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            return function (data, fileName) {
+                var json = JSON.stringify(data),
+                    blob = new Blob([json], {type: "octet/stream"}),
+                    url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+        }());
+        saveData(wordsList,'wordslist.json');
         }
       
         
