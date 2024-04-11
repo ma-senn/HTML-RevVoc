@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>📖RevVoc</title>
+  <title>📖 RevVoc</title>
   <style>
     *{
         font-family: "Trebuchet MS",Arial,sans-serif;
@@ -12,67 +12,46 @@
 </head>
 
 <body>
-    <h1>Révision de Vocabulaire</h1>
+    <!--<h1>Révision de Vocabulaire</h1>-->
 
-    <div id="word-container"></div>
-
-    <button onclick="checkAnswer()">Vérifier</button>
+    <div id="Question"></div>
+    <div id="Reponse"></div>
+    <button onclick="montrer()">Montrer réponse</button>
+    
+    <button onclick="reponseCorrect()">Correct</button>
+    <button onclick="reponseFausse()">Faux</button>
     <button onclick="nextWord()">Mot suivant</button>
+    <br><br>
+
+    <label for="inLang1">Mot en langue 1</label>
+    <input type="text" id="inLang1" name="inLang1"><br>
+    <label for="inLang2">Mot en langue 2</label>
+    <input type="text" id="inLang2" name="inLang2"><br>
+    <button onclick="AjoutMot()">Ajouter mot</button><br><br>
 <script>
-    fetch('chemin/vers/votre/fichier.csv')
-    .then(response => response.text())
-    .then(data => {
-        // Traitement des données CSV
-        const lines = data.split('\n'); // Sépare les lignes du fichier CSV
-        const words = [];
+    var wordsList = new Array();
 
-        for (let i = 0; i < lines.length; i++) {
-        const columns = lines[i].split(','); // Sépare les colonnes de chaque ligne
-        const word = {
-            translation: columns[0],
-            correctAnswers: parseInt(columns[1]),
-            additionalInfo: columns[2]
-        };
-        words.push(word);
+
+    // Fonction pour ajouter un mot à la liste
+    function AddWord() {
+        var inLang1 = document.getElementById("inLang1").value;
+        var inLang2 = document.getElementById("inLang2").value;
+
+        //Ajouter mot à l'array
+        wordsList.push([inLang1,inLang2,0]);
+        console.log(wordsList);
+
+        //enregistré l'array en JSON
+
+
+        }
+      
+        
+    function nextWord() {
+        
         }
 
-        // Faites ce que vous voulez avec les données, comme trier le tableau "words" par nombre de réponses justes
-        words.sort((a, b) => b.correctAnswers - a.correctAnswers);
-
-        // Affichez les mots et leurs détails dans votre interface web
-        words.forEach(word => {
-        // Ajoutez le code pour afficher chaque mot et ses détails dans votre interface web
-        });
-    })
-    .catch(error => {
-        console.error('Une erreur s\'est produite lors de la récupération du fichier CSV :', error);
-    });
-
-    // Fonction pour vérifier la réponse
-    function checkAnswer() {
-          let word = words[currentIndex];
-          let userAnswer = prompt('Quelle est la traduction du mot ' + word.word + '?');
-
-          if (userAnswer === word.translation) {
-            word.correctAnswers++;
-            alert('Bonne réponse!');
-          } else {
-            alert('Mauvaise réponse!');
-          }
-        }
-
-        // Fonction pour passer au mot suivant
-        function nextWord() {
-          currentIndex++;
-
-          if (currentIndex < words.length) {
-            displayWord(currentIndex);
-          } else {
-            alert('Vous avez révisé tous les mots!');
-          }
-        }
-      })
-      .catch(error => console.error(error));
+   
 </script>
 </body>
 </html>
