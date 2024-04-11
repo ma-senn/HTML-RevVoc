@@ -52,9 +52,9 @@
     <br><br>
 
     <label for="inLang1">Mot en langue 1</label>
-    <input type="text" id="inLang1" name="inLang1" value="Bleu"><br>
+    <input type="text" id="inLang1" name="inLang1" value="exemple"><br>
     <label for="inLang2">Mot en langue 2</label>
-    <input type="text" id="inLang2" name="inLang2" value="Blau"><br>
+    <input type="text" id="inLang2" name="inLang2" value="Beispiel"><br>
     <button onclick="AddWord()">Ajouter mot</button><br><br>
     
     <button onclick="SaveList()">Imorter liste</button>
@@ -78,8 +78,8 @@
         //console.log(JSONexport);
 
         //reset inputs
-        document.getElementById("inlang1").reset();
-        document.getElementById("inlang2").reset();
+        document.getElementById("inLang1").value = "";
+        document.getElementById("inLang2").value = "";
       }
 
     function SaveList() {
